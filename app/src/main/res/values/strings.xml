@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Project</string>
+    <string name="title_splash">Splash Page</string>
+    <string name="title_home">Home Page</string>
+    <string name="title_data">Data Page</string>
+    <string name="title_credit">Credit Page</string>
+</resources>
