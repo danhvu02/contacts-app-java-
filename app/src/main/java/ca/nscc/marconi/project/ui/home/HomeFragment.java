@@ -1,7 +1,6 @@
 package ca.nscc.marconi.project.ui.home;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,13 +16,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import ca.nscc.marconi.project.databinding.FragmentHomeBinding;
+import ca.nscc.marconi.project.User;
 
 public class HomeFragment extends Fragment {
 
     private EditText fnameEditText, lnameEditText, emailEditText, addressEditText, phoneEditText, noteEditText;
     private Button submitButton;
-    private SharedPreferences pref;
     private ConstraintLayout cLayout;
 
     private FragmentHomeBinding binding;
@@ -57,9 +61,6 @@ public class HomeFragment extends Fragment {
         noteEditText = binding.noteEditText;
         submitButton = binding.submitButton;
 
-        //initialize shared preference 'pref'
-        pref = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,18 +76,9 @@ public class HomeFragment extends Fragment {
                 inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
 
                 if (validateData(fname, lname, email, address, phone, note) ) {
-                    //add name value as key/value pair to shared preferences.
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putString("firstname", fname);
-                    editor.putString("lastname", lname);
-                    editor.putString("email", email);
-                    editor.putString("address", address);
-                    editor.putString("phone", phone);
-                    editor.putString("note", note);
-                    editor.commit();
+                    User user = new User(fname, lname, email, address, phone, note);
+                    saveUserToFirebase(user);
                     clearForm((ViewGroup) binding.constraintLayout);
-
-                    Toast.makeText(getActivity(), "Data Received", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -138,6 +130,32 @@ public class HomeFragment extends Fragment {
         }
         return true;
     }
+
+    void saveUserToFirebase(User user){
+        // getting instance from Firebase Firestore.
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        // creating a collection reference for Firebase Firetore database.
+        CollectionReference dbUser= db.collection("User");
+
+        // below method is use to add data to Firebase Firestore.
+        dbUser.add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                // after the data addition is successful
+                // we are displaying a success toast message.
+                Toast.makeText(getActivity(), "Data Received", Toast.LENGTH_SHORT).show();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                // this method is called when the data addition process is failed.
+                // displaying a toast message when data addition is failed.
+                Toast.makeText(getActivity(), "Fail to add user \n" + e, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void clearForm(ViewGroup group) {
         for (int i = 0, count = group.getChildCount(); i < count; ++i) {

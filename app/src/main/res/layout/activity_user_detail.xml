@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="@color/my_primary"
+android:padding="16dp"
+tools:context=".UserDetailActivity">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/title_bar_layout">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_detail_textView"
+        android:text="Client Detail"
+        android:textSize="32sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"/>
+
+    <ImageButton
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:id="@+id/close_btn"
+        android:src="@drawable/ic_baseline_close_24"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        app:tint="@color/white"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        />
+
+    <ImageButton
+        android:id="@+id/edit_user_note_btn"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/close_btn"
+        app:tint="@color/white"
+        android:src="@drawable/ic_baseline_edit_24"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
+
+    <ImageButton
+        android:id="@+id/delete_user_btn"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/edit_user_note_btn"
+        app:tint="@color/white"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
+
+    <ImageButton
+        android:id="@+id/save_user_btn"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/delete_user_btn"
+        app:tint="@color/white"
+        android:src="@drawable/ic_baseline_save_24"
+        android:background="?attr/selectableItemBackgroundBorderless"/>
+
+</RelativeLayout>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/title_bar_layout"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginVertical="26dp"
+    android:backgroundTint="@color/white"
+    android:background="@drawable/rounded_cornor">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_fname_text"
+        android:hint="First Name"
+        android:textSize="20sp"
+        android:layout_marginVertical="8dp"
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_lname_text"
+        android:hint="Last Name"
+        android:textSize="20sp"
+        android:layout_marginVertical="8dp"
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_email_text"
+        android:hint="Email"
+        android:textSize="20sp"
+        android:layout_marginVertical="8dp"
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_address_text"
+        android:hint="Address"
+        android:textSize="20sp"
+        android:layout_marginVertical="8dp"
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_phone_text"
+        android:hint="Phone"
+        android:textSize="20sp"
+        android:layout_marginVertical="8dp"
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/user_note_text"
+        android:hint="Content"
+        android:minLines="8"
+        android:textSize="20sp"
+        android:gravity="top"
+        android:layout_marginVertical="8dp"
+        android:padding="12dp"
+        android:textColor="@color/black"/>
+
+</LinearLayout>
+
+
+</RelativeLayout>
